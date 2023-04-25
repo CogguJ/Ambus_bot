@@ -1,12 +1,11 @@
 import disnake
-import discord
 import random
 import requests
 import asyncio
 from disnake.ext import commands
 
 config = {
-    'token': '*******************',
+    'token': '******************************',
     'prefix': '/',
 }
 
@@ -23,12 +22,12 @@ async def on_ready():
 async def help(interaction: disnake.AppCmdInter):
     pass
 
-
+'''
 @bot.event
-async def on_guild_join(interaction: disnake.AppCmdInter):
+async def on_guild_join(interaction: disnake.AppCmdInter, guild: disnake.Guild):
     interaction.send("Всем привет! Настроить ли сервер для вас по моему шаблону?\n"
                      "Если вы желаете этого то пропишите команду /Op_guild. Помощь по боту - /help")
-
+'''
 
 @bot.slash_command(description="Настройка сервера! (ОПАСНО - УДАЛЯЕТ ВСЕ РОЛИ И КАНАЛЫ И СОЗДАЁТ ВСЁ ЗАНОВО)")
 @commands.has_permissions(administrator=True)
@@ -45,7 +44,7 @@ async def op_guild(interaction: disnake.AppCmdInter, guild: disnake.Guild, ):
             pass
     ctg1 = await guild.create_category("Текстовики")
     await guild.create_text_channel("Новости", category=ctg1)
-    #roless = guild.create_text_channel("Роли", category=ctg1)
+    # roless = guild.create_text_channel("Роли", category=ctg1)
     await guild.create_text_channel("Говорильня", category=ctg1)
     await guild.create_text_channel("Поиск игроков", category=ctg1)
     ctg2 = await guild.create_category("Голосовики")
@@ -57,6 +56,7 @@ async def op_guild(interaction: disnake.AppCmdInter, guild: disnake.Guild, ):
     ych = await guild.create_role(name="Участник")
     for member in guild.members:
         await member.add_roles(ych)
+
 
 @bot.event
 async def on_message(message):
@@ -128,6 +128,7 @@ async def server_stat(inter):
     await inter.response.send_message(
         f"Название сервера: {inter.guild.name}\nВсего участников: {inter.guild.member_count}"
     )
+
 
 '''
 @bot.slash_command()
