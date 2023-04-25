@@ -136,6 +136,4 @@ async def graf(interaction: disnake.AppCmdInter):
         await interaction.send(file=discord.File(fp, 'img2.jpg'))
 '''
 
-intents = discord.Intents.default()
-intents.members = True
 bot.run(config['token'])
