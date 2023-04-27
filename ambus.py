@@ -5,7 +5,7 @@ import asyncio
 from disnake.ext import commands
 
 config = {
-    'token': '******************************',
+    'token': 'TOKEN',
     'prefix': '/',
 }
 
@@ -20,14 +20,9 @@ async def on_ready():
 
 @bot.slash_command()
 async def help(interaction: disnake.AppCmdInter):
-    pass
+    interaction.send("**Данный бот предназначен для базовых работ с сервером**\n"
+                     "Почти каждая команда бота описывается при её вызове")
 
-'''
-@bot.event
-async def on_guild_join(interaction: disnake.AppCmdInter, guild: disnake.Guild):
-    interaction.send("Всем привет! Настроить ли сервер для вас по моему шаблону?\n"
-                     "Если вы желаете этого то пропишите команду /Op_guild. Помощь по боту - /help")
-'''
 
 @bot.slash_command(description="Настройка сервера! (ОПАСНО - УДАЛЯЕТ ВСЕ РОЛИ И КАНАЛЫ И СОЗДАЁТ ВСЁ ЗАНОВО)")
 @commands.has_permissions(administrator=True)
@@ -44,7 +39,6 @@ async def op_guild(interaction: disnake.AppCmdInter, guild: disnake.Guild, ):
             pass
     ctg1 = await guild.create_category("Текстовики")
     await guild.create_text_channel("Новости", category=ctg1)
-    # roless = guild.create_text_channel("Роли", category=ctg1)
     await guild.create_text_channel("Говорильня", category=ctg1)
     await guild.create_text_channel("Поиск игроков", category=ctg1)
     ctg2 = await guild.create_category("Голосовики")
@@ -129,12 +123,5 @@ async def server_stat(inter):
         f"Название сервера: {inter.guild.name}\nВсего участников: {inter.guild.member_count}"
     )
 
-
-'''
-@bot.slash_command()
-async def graf(interaction: disnake.AppCmdInter):
-    with open('img2.jpg', 'rb') as fp:
-        await interaction.send(file=discord.File(fp, 'img2.jpg'))
-'''
 
 bot.run(config['token'])
